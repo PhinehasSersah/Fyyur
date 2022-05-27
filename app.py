@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
+from sqlalchemy import PrimaryKeyConstraint
 from forms import *
 from flask_migrate import Migrate
 #----------------------------------------------------------------------------#
@@ -38,8 +39,12 @@ class Venue(db.Model):
     state = db.Column(db.String(120))
     address = db.Column(db.String(120))
     phone = db.Column(db.String(120))
+    genre = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    website_link = db.Column(db.String(120))
+    talent_search = db.Column(db.Boolean )
+    search_description = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
@@ -54,11 +59,17 @@ class Artist(db.Model):
     genres = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    website_link = db.Column(db.String(120))
+    venue_search = db.Column(db.String(120))
+    description = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
-
+class Shows(db.Model):
+  __tablename__ = 'Shows'
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(120))
 #----------------------------------------------------------------------------#
 # Filters.
 #----------------------------------------------------------------------------#
